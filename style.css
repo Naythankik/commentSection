@@ -1,0 +1,295 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --replies-color: hsl(238, 40%, 52%);
+  --delete-color: hsl(358, 79%, 66%);
+  --maybe-reply-color: hsl(239, 57%, 85%);
+  --maybe-delete-color: hsl(357, 100%, 86%);
+  --username: hsl(212, 24%, 26%);
+  --text-color: hsl(211, 10%, 45%);
+  /* --bg-color: hsl(223, 19%, 93%); */
+  --bg-color: hsl(228, 33%, 97%);
+  --card-article: hsl(0, 0%, 100%);
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.5;
+}
+body {
+  background: var(--bg-color);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-family: "Rubik", sans-serif;
+  padding: 30px 20px;
+  width: 100%;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+article.message {
+  background: var(--card-article);
+  border-radius: 10px;
+  padding: 25px;
+  height: fit-content;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+}
+
+article.message-reply {
+  background: var(--card-article);
+  border-radius: 10px;
+  padding: 25px;
+  height: fit-content;
+  display: none;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+article.message-reply img {
+  height: 30px;
+  width: 30px;
+}
+article.message-reply form {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+article.message-reply textarea {
+  resize: none;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+}
+article.message-reply textarea:focus {
+  outline: none;
+  border: 1px solid var(--replies-color);
+  font-family: inherit;
+}
+article.message-reply button {
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--card-article);
+  font-size: 17px;
+  background: var(--replies-color);
+  border-radius: 10px;
+  font-weight: 700;
+}
+div.controls {
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+div.controls button:hover {
+  opacity: 1;
+  filter: brightness(0.3);
+}
+div.controls span {
+  color: var(--replies-color);
+  font-weight: 700;
+  line-height: 1.5;
+}
+div.main-message {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 5px;
+}
+div.main-message header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.main-message button {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--replies-color);
+  font-size: 17px;
+  font-weight: 700;
+}
+div.options {
+  display: inherit;
+  gap: 15px;
+  align-items: center;
+}
+div.options span {
+  font-weight: 500;
+  color: var(--username);
+  font-size: 16px;
+}
+p {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 17px;
+}
+div.options img {
+  width: 30px;
+  height: 30px;
+}
+div.main-message > p {
+  line-height: 1.5;
+}
+
+div.reply-thread {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+div.vertical-rule {
+  border: none;
+  border-left: 2px solid var(--username);
+  margin: 0 4rem;
+}
+
+div.thread-collection {
+  display: grid;
+  justify-items: end;
+  gap: 5px;
+}
+span.tagged {
+  color: var(--replies-color);
+  font-weight: 500;
+}
+p.you {
+  color: white;
+  background: var(--replies-color);
+  padding: 5px;
+  line-height: 0.5;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+}
+div.message-action {
+  display: flex;
+  gap: 5px;
+}
+div.message-action button {
+  color: var(--delete-color);
+  font-size: 17px;
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+div.message-action button:last-child {
+  color: var(--replies-color);
+}
+
+/* the overlay message container */
+div.overlay {
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  width: 100%;
+}
+article.modal {
+  background: var(--card-article);
+  display: grid;
+  grid-gap: 20px;
+  width: 25%;
+  padding: 30px 20px 20px;
+  border-radius: 15px;
+}
+article.modal span {
+  color: var(--username);
+  font-weight: 500;
+  font-size: 20px;
+}
+
+div.confirm {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+div.confirm button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: var(--delete-color);
+  text-transform: uppercase;
+  color: var(--card-article);
+  font-size: 18px;
+  font-weight: 600;
+}
+div.confirm button:first-of-type {
+  background: var(--text-color);
+}
+.attribution {
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    padding: 30px 20px;
+  }
+  main {
+    width: 100%;
+  }
+  div.vertical-rule {
+    display: none;
+  }
+  article.message {
+    padding: 10px;
+    flex-direction: column-reverse;
+  }
+  div.controls {
+    flex-direction: row;
+    width: 30%;
+  }
+  div.main-message button:not(div.message-action button),
+  div.message-action {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+  article.modal {
+    width: 90%;
+  }
+  article.message-reply form {
+    gap: 10px;
+  }
+
+  article.message-reply button {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  div.options {
+    gap: 25px;
+  }
+}
