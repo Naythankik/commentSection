@@ -2,11 +2,10 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 app.use(cors());
-const port = process.env.PORT;
+const port = 3000;
 
 app.get("/users", (req, res) => {
   const filePath = path.join(__dirname, "data.json");
