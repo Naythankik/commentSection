@@ -1,5 +1,5 @@
 const userAPI = async () => {
-  const api = await fetch("http://localhost:3000/users");
+  const api = await fetch(`https://comment-section-vert.vercel.app/users`);
   return api.json();
 };
 
