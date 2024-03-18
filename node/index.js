@@ -1,17 +1,10 @@
 const userAPI = async () => {
-  const api = await fetch("./data.json");
-  if (!api.ok) {
-    alert("Couldn't find API. Please try again later");
-  }
-  if (api.status !== 200) {
-    alert("API status: " + api.status);
-  }
+  const api = await fetch("http://localhost:3000/users");
   return api.json();
 };
 
 const userMessage = async () => {
   let users = await userAPI();
-  console.log(users);
 
   users = users.comments;
   let mainContainer = document.querySelector(".container");
@@ -28,8 +21,9 @@ const userMessage = async () => {
     controls.classList.add("controls");
 
     let plus = document.createElement("button");
-    plus.setAttribute("type", "submit");
-    plus.innerHTML = `<object data="./images/icon-plus.svg"></object>`;
+    plus.setAttribute("id", "plus");
+    plus.setAttribute("onclick", "add(this)");
+    plus.innerHTML = `<img src="./images/icon-plus.svg" />`;
     controls.appendChild(plus);
 
     let score = document.createElement("span");
@@ -38,8 +32,9 @@ const userMessage = async () => {
     controls.appendChild(score);
 
     let minus = document.createElement("button");
-    minus.setAttribute("type", "submit");
-    minus.innerHTML = `<object data="./images/icon-minus.svg"></object>`;
+    minus.setAttribute("id", "minus");
+    minus.setAttribute("onclick", "subtract(this)");
+    minus.innerHTML = `<img src="images/icon-minus.svg" />`;
     controls.appendChild(minus);
 
     let mainMessage = document.createElement("div");
@@ -66,7 +61,7 @@ const userMessage = async () => {
     reply.classList.add("reply");
     user.id == 1 ? reply.setAttribute("onclick", "reply(this)") : "";
 
-    reply.innerHTML = "<img src='/images/icon-reply.svg'>Reply";
+    reply.innerHTML = "<img src='images/icon-reply.svg'>Reply";
 
     header.appendChild(options);
     header.appendChild(reply);
@@ -94,7 +89,8 @@ const userMessage = async () => {
 
         let plus = document.createElement("button");
         plus.setAttribute("type", "submit");
-        plus.innerHTML = `<object data="./images/icon-plus.svg"></object>`;
+        plus.setAttribute("onclick", "add(this)");
+        plus.innerHTML = `<img src="images/icon-plus.svg"/>`;
         controls.appendChild(plus);
 
         let score = document.createElement("span");
@@ -104,7 +100,8 @@ const userMessage = async () => {
 
         let minus = document.createElement("button");
         minus.setAttribute("type", "submit");
-        minus.innerHTML = `<object data="./images/icon-minus.svg"></object>`;
+        minus.setAttribute("onclick", "subtract(this)");
+        minus.innerHTML = `<img src="images/icon-minus.svg" />`;
         controls.appendChild(minus);
 
         let mainMessage = document.createElement("div");
@@ -139,7 +136,7 @@ const userMessage = async () => {
           let reply = document.createElement("button");
           reply.classList.add("reply");
           reply.setAttribute("onclick", "reply(this)");
-          reply.innerHTML = "<img src='/images/icon-reply.svg'>Reply";
+          reply.innerHTML = "<img src='images/icon-reply.svg'>Reply";
 
           header.appendChild(options);
           header.appendChild(reply);
@@ -154,6 +151,7 @@ const userMessage = async () => {
 
         article.appendChild(controls);
         article.classList.add("thread");
+        article.setAttribute("id", `thread-${i + 1}`);
         article.appendChild(mainMessage);
 
         threadCollection.appendChild(article);
@@ -182,6 +180,11 @@ cancel = (el) => {
   document.querySelector(".overlay").style.display = "none";
 };
 
+deleted = (el) => {
+  document.querySelector("#thread-2").style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
+};
+
 reply = (e) => {
   let reply = document.querySelector(".message-reply");
   e.parentNode.parentNode.parentNode.parentNode.insertBefore(
@@ -189,4 +192,16 @@ reply = (e) => {
     e.parentNode.parentNode.parentNode.nextElementSibling
   );
   reply.style.display = "flex";
+};
+
+add = (e) => {
+  let num = parseInt(e.nextElementSibling.innerHTML);
+  e.nextElementSibling.innerHTML = num + 1;
+};
+
+subtract = (e) => {
+  let num = parseInt(e.previousElementSibling.innerHTML);
+  if (num > 0) {
+    e.previousElementSibling.innerHTML = num - 1;
+  }
 };
