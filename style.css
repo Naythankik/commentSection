@@ -284,11 +284,19 @@ div.confirm button:first-of-type {
   }
   article.message-reply form {
     gap: 10px;
+    position: relative;
+  }
+
+  article.message-reply {
+    flex-direction: column-reverse;
   }
 
   article.message-reply button {
     padding: 10px;
     font-size: 12px;
+    position: absolute;
+    bottom: -3.2rem;
+    right: 0;
   }
 
   div.options {
